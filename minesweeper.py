@@ -3,7 +3,7 @@
 #------------------------------------------------------------------------------
 #    Filename: minesweeper.py
 #
-#      Author: David C. Drake (www.davidcdrake.com)
+#      Author: David C. Drake (http://davidcdrake.com)
 #
 # Description: A simple Minesweeper game developed using Python 2.7.2 and PyGTK
 #              2.24.0.

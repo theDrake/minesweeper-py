@@ -2,12 +2,12 @@ minesweeper-py
 ==============
 
 The classic Minesweeper game, developed using Python 2.7 and PyGTK 2.24 by
-David C. Drake (www.davidcdrake.com).
+David C. Drake (http://davidcdrake.com).
 
 To Launch the Game
 ------------------
 1. Install Python 2.7 (http://python.org/download/).
-2. Install PyGTK 2.24 (http://www.pygtk.org/downloads.html).
+2. Install PyGTK 2.24 (http://pygtk.org/downloads.html).
 3. Download all "minesweeper-py" files.
 4. Double-click on "minesweeper.py".
 
