@@ -1,32 +1,31 @@
-#!/usr/bin/env python
+#!/usr/bin/python2
 
 #------------------------------------------------------------------------------
 #    Filename: minesweeper.py
 #
 #      Author: David C. Drake (http://davidcdrake.com)
 #
-# Description: A simple Minesweeper game developed using Python 2.7.2 and PyGTK
-#              2.24.0.
+# Description: A Minesweeper game developed using Python 2.7 and PyGTK 2.24.
 #------------------------------------------------------------------------------
 
 import gtk
 import pygtk
 import random
 
-SMALL             = 0
-MEDIUM            = 1
-LARGE             = 2
-DEFAULT_SIZE      = SMALL
+SMALL = 0
+MEDIUM = 1
+LARGE = 2
+DEFAULT_SIZE = SMALL
 SIZE_DESCRIPTIONS = ["Small (10 x 10)",
                      "Medium (15 x 15)",
                      "Large (20 x 20)"]
-ROW_COL_VALUES    = [(10, 10),
-                     (15, 15),
-                     (20, 20)]
-CELL_SIZE         = 20   # Measured in pixels.
-MINE_RATIO        = 0.10 # By default, ~10% of the cells will contain mines.
-FLAG_IMAGE        = 'images/flag.jpg'
-MINE_IMAGE        = 'images/mine.jpg'
+ROW_COL_VALUES = [(10, 10),
+                  (15, 15),
+                  (20, 20)]
+CELL_SIZE = 20 # pixels
+MINE_RATIO = 0.10 # About 10% of the cells will contain mines.
+FLAG_IMAGE = 'images/flag.jpg'
+MINE_IMAGE = 'images/mine.jpg'
 
 #------------------------------------------------------------------------------
 #       Class: Minesweeper
@@ -52,8 +51,7 @@ class Minesweeper():
     def __init__(self, size):
         self.size = size
         (self.rows, self.cols) = ROW_COL_VALUES[self.size]
-        self.createWindow(self.cols * CELL_SIZE, # width
-                          self.rows * CELL_SIZE) # height
+        self.createWindow(self.cols * CELL_SIZE, self.rows * CELL_SIZE)
         self.createMenu()
         self.createTable(self.rows, self.cols)
         self.window.show_all()
@@ -190,9 +188,9 @@ class Minesweeper():
     def resizeHandler(self, widget, data=None):
         label = gtk.Label('Choose a new size:')
         dialog = gtk.Dialog('Resize',
-          None,
-          gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
-          (SIZE_DESCRIPTIONS[SMALL], SMALL,
+                            None,
+                            gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+                            (SIZE_DESCRIPTIONS[SMALL], SMALL,
                              SIZE_DESCRIPTIONS[MEDIUM], MEDIUM,
                              SIZE_DESCRIPTIONS[LARGE], LARGE,
                              gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT))
@@ -261,7 +259,7 @@ class Minesweeper():
     #     Outputs: None.
     #--------------------------------------------------------------------------
     def clickedHandler(self, widget, data=None):
-        if data.button == 1:    # Left-click.
+        if data.button == 1: # Left-click
             (row, col) = self.table.getRowColOfButton(widget)
             cell = self.table.getCells()[self.table.getIndex(row, col)]
             if self.playerHasLost(cell):
@@ -269,7 +267,7 @@ class Minesweeper():
                 return
             else:
                 self.table.revealCell(row, col)
-        elif data.button == 3:  # Right-click.
+        elif data.button == 3: # Right-click
             widget.toggleFlag()
         if self.playerHasWon():
             self.restart()
@@ -326,9 +324,9 @@ class Minesweeper():
     def displayMessage(self, message, title=""):
         label = gtk.Label(' ' + message + ' ')
         dialog = gtk.Dialog(title,
-          None,
-          gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
-          (gtk.STOCK_OK, gtk.RESPONSE_ACCEPT))
+                            None,
+                            gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+                            (gtk.STOCK_OK, gtk.RESPONSE_ACCEPT))
         dialog.vbox.pack_start(label)
         label.show()
         dialog.run()
@@ -365,10 +363,10 @@ class MinesweeperTable(gtk.Table):
                  mineRatio=MINE_RATIO,
                  homogeneous=True):
         gtk.Table.__init__(self, rows, cols, homogeneous)
-        self.rows      = rows
-        self.cols      = cols
+        self.rows = rows
+        self.cols = cols
         self.mineRatio = mineRatio
-        self.cells     = []
+        self.cells = []
         for row in range(rows):
             for col in range(cols):
                 cell = MinesweeperCell()
@@ -551,7 +549,7 @@ class MinesweeperTable(gtk.Table):
         for i in range(self.rows * self.cols):
             if self.cells[i].getButton() == button:
                 return self.getRowCol(i)
-        return (-1, -1) # Indicates button was not found.
+        return (-1, -1) # Button was not found.
 
 #------------------------------------------------------------------------------
 #       Class: MinesweeperCell
@@ -573,9 +571,9 @@ class MinesweeperCell:
     #     Outputs: None.
     #--------------------------------------------------------------------------
     def __init__(self):
-        self.mine          = False
+        self.mine = False
         self.adjacentMines = 0
-        self.button        = MinesweeperButton()
+        self.button = MinesweeperButton()
 
     #--------------------------------------------------------------------------
     #      Method: placeMine
