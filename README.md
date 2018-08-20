@@ -1,9 +1,9 @@
 minesweeper-py
 ==============
 
-The classic _Minesweeper_ game, developed using [Python 2.7]
-(http://python.org/download/) and [PyGTK 2.24](http://pygtk.org/downloads.html)
-by [David C. Drake](http://davidcdrake.com).
+The classic _Minesweeper_ game, developed using [Python 2.7](https://python.org)
+and [PyGTK 2.24](https://pypi.org/project/PyGTK) by
+[David C. Drake](https://davidcdrake.com).
 
 Controls
 --------
