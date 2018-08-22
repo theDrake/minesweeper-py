@@ -18,10 +18,10 @@ LARGE = 2
 DEFAULT_SIZE = SMALL
 SIZE_DESCRIPTIONS = ["Small (10 x 10)", "Medium (15 x 15)", "Large (20 x 20)"]
 ROW_COL_VALUES = [(10, 10), (15, 15), (20, 20)]
-CELL_SIZE = 20 # pixels
+CELL_SIZE = 30 # pixels
 MINE_RATIO = 0.10 # about 10% of cells will contain mines
-FLAG_IMAGE = 'images/flag.jpg'
-MINE_IMAGE = 'images/mine.jpg'
+FLAG_IMAGE = 'images/flag.png'
+MINE_IMAGE = 'images/mine.png'
 
 #-------------------------------------------------------------------------------
 #       Class: Minesweeper
@@ -704,7 +704,7 @@ class MinesweeperImage(gtk.Image):
     def __init__(self, filename):
         gtk.Image.__init__(self)
         pixbuf = gtk.gdk.pixbuf_new_from_file(filename)
-        pixbuf = pixbuf.scale_simple(CELL_SIZE - 1, CELL_SIZE - 1,
+        pixbuf = pixbuf.scale_simple(CELL_SIZE, CELL_SIZE,
                                      gtk.gdk.INTERP_BILINEAR)
         self.set_from_pixbuf(pixbuf)
 
