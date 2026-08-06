@@ -14,8 +14,7 @@
 
 import gi
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk
-from gi.repository.GdkPixbuf import Pixbuf, InterpType
+from gi.repository import Gtk, GdkPixbuf
 import random
 
 SMALL = 0
@@ -76,7 +75,7 @@ class Minesweeper():
         self.window.set_title('Minesweeper')
         self.window.connect('destroy', self.destroyHandler)
         self.window.connect('delete_event', self.deleteHandler)
-        self.box = Gtk.Box(Gtk.Orientation.VERTICAL)
+        self.box = Gtk.Box()
         self.window.add(self.box)
 
     #---------------------------------------------------------------------------
@@ -94,7 +93,7 @@ class Minesweeper():
         self.addMenuItem('Resize', self.resizeHandler)
         self.addMenuItem('Solve', self.solveHandler)
         self.addMenuItem('Quit', self.destroyHandler)
-        self.root_menu = Gtk.MenuItem('Game')
+        self.root_menu = Gtk.MenuItem(label='Game')
         self.root_menu.set_submenu(self.menu)
         self.menubar = Gtk.MenuBar()
         self.menubar.add(self.root_menu)
@@ -111,7 +110,7 @@ class Minesweeper():
     #     Outputs: None.
     #---------------------------------------------------------------------------
     def addMenuItem(self, title, handler):
-        item = Gtk.MenuItem(title)
+        item = Gtk.MenuItem(label=title)
         item.connect('activate', handler)
         self.menu.add(item)
 
@@ -348,16 +347,16 @@ class MinesweeperTable(Gtk.Table):
     # Description: Populates the MinesweeperTable with cells, buttons, mines,
     #              and labels for the non-mine cells surrounding each mine.
     #
-    #      Inputs: rows        - Number of rows.
-    #              cols        - Number of columns.
-    #              mineRatio   - Ratio of mines vs. empty cells.
-    #              homogeneous - If 'True', all table cells will be the same
-    #                            size as the largest cell.
+    #      Inputs: rows      - Number of rows.
+    #              cols      - Number of columns.
+    #              mineRatio - Ratio of mines vs. empty cells.
+    #              homo      - If 'True', all table cells will be the same
+    #                          size as the largest cell.
     #
     #     Outputs: None.
     #---------------------------------------------------------------------------
-    def __init__(self, rows, cols, mineRatio=MINE_RATIO, homogeneous=True):
-        Gtk.Table.__init__(self, rows, cols, homogeneous)
+    def __init__(self, rows, cols, mineRatio=MINE_RATIO, homo=True):
+        Gtk.Table.__init__(self, n_rows=rows, n_columns=cols, homogeneous=homo)
         self.rows = rows
         self.cols = cols
         self.mineRatio = mineRatio
@@ -411,7 +410,7 @@ class MinesweeperTable(Gtk.Table):
                     n = self.getAdjacentMineCount(row, col)
                     if n > 0:
                         self.cells[i].setAdjacentMines(n)
-                        self.attach(Gtk.Label(str(n)), col, col + 1, row,
+                        self.attach(Gtk.Label(label=str(n)), col, col + 1, row,
                                     row + 1)
 
     #---------------------------------------------------------------------------
@@ -710,8 +709,9 @@ class MinesweeperImage(Gtk.Image):
     #---------------------------------------------------------------------------
     def __init__(self, filename):
         Gtk.Image.__init__(self)
-        pixbuf = Pixbuf.new_from_file(filename)
-        pixbuf = pixbuf.scale_simple(CELL_SIZE, CELL_SIZE, InterpType.BILINEAR)
+        pixbuf = GdkPixbuf.Pixbuf.new_from_file(filename)
+        pixbuf = pixbuf.scale_simple(CELL_SIZE, CELL_SIZE,
+                                     GdkPixbuf.InterpType.BILINEAR)
         self.set_from_pixbuf(pixbuf)
 
 def main():
